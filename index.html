@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arqiba - Provador Virtual</title>
+    <style>
+        /* Paleta de Cores Arqiba */
+        :root {
+            --preto: #000000;
+            --branco: #ffffff;
+            --verde: #4b7f29;
+            --amarelo: #ffd308;
+            --azul: #035c8e;
+            --fundo: #ffffff; 
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--fundo);
+            color: var(--preto);
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            margin: 0;
+        }
+        
+        .container {
+            background-color: var(--branco);
+            padding: 25px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        /* Header e Branding */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+        }
+        
+        .logo-arqiba {
+            max-width: 190px;
+            height: auto;
+            margin-bottom: 8px;
+        }
+
+        .header .slogan {
+            color: var(--preto);
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .descricao {
+            background-color: rgba(3, 92, 142, 0.04);
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--preto);
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--azul);
+        }
+
+        /* Abas Estilizadas */
+        .tabs { 
+            display: flex; 
+            margin-bottom: 25px; 
+            background: #f5f5f5; 
+            border-radius: 10px; 
+            padding: 5px; 
+        }
+        .tab { 
+            flex: 1; 
+            padding: 14px; 
+            text-align: center; 
+            cursor: pointer; 
+            font-weight: 800; 
+            color: #777; 
+            border-radius: 6px; 
+            transition: all 0.2s ease; 
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        .tab.active { 
+            background: var(--amarelo); 
+            color: var(--preto); 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1); 
+        }
+
+        /* Formulário */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
+        
+        label { 
+            font-weight: 700; 
+            display: block; 
+            margin-top: 10px; 
+            font-size: 13px; 
+            color: var(--azul); 
+            text-transform: uppercase;
+        }
+        select, input { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 6px; 
+            border: 2px solid #eee; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            background: #fafafa;
+            transition: all 0.3s;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--azul);
+            background: var(--branco);
+        }
+        
+        /* Botão de Ação */
+        button { 
+            width: 100%; 
+            padding: 18px; 
+            background-color: var(--amarelo); 
+            color: var(--preto); 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 18px; 
+            font-weight: 900; 
+            margin-top: 30px; 
+            cursor: pointer; 
+            transition: transform 0.2s, background-color 0.2s; 
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 211, 8, 0.3);
+        }
+        button:hover { 
+            background-color: #f2c700; 
+            transform: scale(1.02); 
+        }
+
+        /* Resultado Premium */
+        #resultado { 
+            margin-top: 25px; 
+            padding: 25px; 
+            border-radius: 15px; 
+            font-weight: bold; 
+            text-align: center; 
+            display: none; 
+            animation: slideUp 0.5s ease-out; 
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+
+        .logo-resultado {
+            max-width: 100px;
+            height: auto;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://lh3.googleusercontent.com/d/1anTO_5ARQh8NaQEq8Ilb9UZ1XFzOvp69" alt="Arqiba Logo" class="logo-arqiba">
+        <p class="slogan">"A arquibancada veste aqui"</p>
+    </div>
+
+    <div class="descricao">
+        <strong>Bem-vindo ao nosso Provador Virtual! ⚽</strong><br>
+        Não sabe qual tamanho escolher? Preencha os seus dados corporais ou as medidas de uma camisa que já tenha, e a nossa ferramenta sugerirá o tamanho ideal.
+    </div>
+
+    <div class="form-grid">
+        <div class="full-width">
+            <label>👤 Gênero:</label>
+            <select id="genero">
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select>
+        </div>
+
+        <div>
+            <label>👕 Modelo:</label>
+            <select id="modelo">
+                <option value="torcedor">Torcedor (Solta)</option>
+                <option value="jogador">Jogador (Justa)</option>
+            </select>
+        </div>
+
+        <div>
+            <label>✨ Caimento:</label>
+            <select id="caimento">
+                <option value="justo">Bem Justa</option>
+                <option value="normal" selected>Normal</option>
+                <option value="largo">Mais Larga</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="mudarAba('medidasCorpo', this)">⚖️ Peso e Altura</div>
+        <div class="tab" onclick="mudarAba('medidasCamisa', this)">📏 Fita Métrica</div>
+    </div>
+
+    <div id="medidasCorpo" class="form-section active">
+        <div class="form-grid">
+            <div>
+                <label>Peso (kg):</label>
+                <input type="number" id="peso" placeholder="Ex: 80">
+            </div>
+            <div>
+                <label>Altura (cm):</label>
+                <input type="number" id="alturaCorpo" placeholder="Ex: 175">
+            </div>
+        </div>
+    </div>
+
+    <div id="medidasCamisa" class="form-section">
+        <div class="form-grid">
+            <div>
+                <label>Largura (cm):</label>
+                <input type="number" id="largura" placeholder="Ex: 55">
+            </div>
+            <div>
+                <label>Altura (cm):</label>
+                <input type="number" id="alturaCamisa" placeholder="Ex: 72">
+            </div>
+        </div>
+    </div>
+
+    <button onclick="calcularTamanho()">Calcular Sugestão</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    let abaAtual = 'medidasCorpo';
+    const tamanhos = ["P", "M", "G", "GG"];
+
+    function mudarAba(id, el) {
+        abaAtual = id;
+        document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        el.classList.add('active');
+        document.getElementById('resultado').style.display = 'none';
+    }
+
+    function calcularTamanho() {
+        const genero = document.getElementById('genero').value;
+        const modelo = document.getElementById('modelo').value;
+        const caimento = document.getElementById('caimento').value;
+        
+        let indexSugerido = 0;
+
+        if (abaAtual === 'medidasCamisa') {
+            const larg = parseInt(document.getElementById('largura').value);
+            const alt = parseInt(document.getElementById('alturaCamisa').value);
+            if (!larg || !alt) return erro("Preencha a largura e altura da camisa.");
+
+            if (genero === 'masculino') {
+                if (larg <= 54 && alt <= 66) indexSugerido = 0;
+                else if (larg <= 55 && alt <= 72) indexSugerido = 1;
+                else if (larg <= 56 && alt <= 76) indexSugerido = 2;
+                else indexSugerido = 3;
+            } else {
+                if (larg <= 44 && alt <= 62) indexSugerido = 0;
+                else if (larg <= 46 && alt <= 64) indexSugerido = 1;
+                else if (larg <= 48 && alt <= 66) indexSugerido = 2;
+                else indexSugerido = 3;
+            }
+        } else {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altC = parseInt(document.getElementById('alturaCorpo').value);
+            if (!peso || !altC) return erro("Preencha seu peso e altura.");
+
+            if (genero === 'masculino') {
+                if (peso <= 68 && altC <= 172) indexSugerido = 0;
+                else if (peso <= 78 && altC <= 178) indexSugerido = 1;
+                else if (peso <= 88 && altC <= 185) indexSugerido = 2;
+                else indexSugerido = 3;
+            } else {
+                if (peso <= 55 && altC <= 160) indexSugerido = 0;
+                else if (peso <= 65 && altC <= 168) indexSugerido = 1;
+                else if (peso <= 75 && altC <= 175) indexSugerido = 2;
+                else indexSugerido = 3;
+            }
+        }
+
+        if (modelo === 'jogador') indexSugerido++;
+        if (caimento === 'largo') indexSugerido++;
+        else if (caimento === 'justo' && modelo === 'torcedor') indexSugerido--;
+
+        indexSugerido = Math.max(0, Math.min(indexSugerido, tamanhos.length - 1));
+        
+        sucesso(tamanhos[indexSugerido], modelo, caimento);
+    }
+
+    function erro(m) {
+        const res = document.getElementById('resultado');
+        res.style.display = "block";
+        res.style.backgroundColor = "#fff0f0";
+        res.style.color = "#cc0000";
+        res.style.border = "2px solid #ffcccc";
+        res.innerText = m;
+    }
+
+    function sucesso(tam, mod, cai) {
+        const res = document.getElementById('resultado');
+        res.style.display = "block";
+        res.style.backgroundColor = "var(--verde)";
+        res.style.color = "var(--branco)";
+        res.style.border = "none";
+        
+        let modeloTexto = mod === 'jogador' ? 'Jogador (Slim)' : 'Torcedor';
+        let caimentoTexto = cai === 'justo' ? 'Mais justa' : (cai === 'largo' ? 'Mais solta' : 'Normal');
+
+        res.innerHTML = `
+        <img src="https://lh3.googleusercontent.com/d/1anTO_5ARQh8NaQEq8Ilb9UZ1XFzOvp69" alt="Arqiba Logo" class="logo-resultado"><br>
+        SUGESTÃO DE TAMANHO: <br><span style="font-size: 48px; line-height: 1.2;">${tam}</span><br>
+        <small style="font-weight: normal; opacity: 0.9; display: block; margin-top: 8px;">Modelo ${modeloTexto} com caimento ${caimentoTexto.toLowerCase()}.</small>
+        
+        <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.25); margin: 20px 0;">
+        
+        <span style="font-size: 11px; font-weight: normal; opacity: 0.9; line-height: 1.5; display: block; text-align: justify;">
+        *Atenção: Este resultado é uma estimativa baseada em proporções padrão. O caimento final pode variar de acordo com o biotipo de cada pessoa.
+        </span>`;
+    }
+</script>
+
+</body>
+</html>
