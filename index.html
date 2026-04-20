@@ -41,17 +41,21 @@
         }
         
         .logo-arqiba {
-            max-width: 190px;
+            /* TAMANHO DA LOGO AUMENTADO */
+            max-width: 300px; /* Aumentado de 190px para 300px */
+            width: 100%; /* Garante que ela ocupe até o máximo definido ou a largura da tela */
             height: auto;
             margin-bottom: 8px;
         }
 
         .header .slogan {
             color: var(--preto);
-            font-size: 18px;
+            font-size: 16px; 
             font-style: italic;
-            font-weight: 700;
+            font-weight: 800;
             margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .descricao {
@@ -169,8 +173,8 @@
 
 <div class="container">
     <div class="header">
-        <img src="https://lh3.googleusercontent.com/d/1anTO_5ARQh8NaQEq8Ilb9UZ1XFzOvp69" alt="Arqiba Logo" class="logo-arqiba">
-        <p class="slogan">"A arquibancada veste aqui"</p>
+        <img src="https://lh3.googleusercontent.com/d/1v79815vDWeHIIdOUs7_K7I7mJlfQZKQ4" alt="Arqiba Logo" class="logo-arqiba">
+        <p class="slogan">"A ARQUIBANCADA VESTE AQUI!"</p>
     </div>
 
     <div class="descricao">
@@ -324,7 +328,7 @@
         let caimentoTexto = cai === 'justo' ? 'Mais justa' : (cai === 'largo' ? 'Mais solta' : 'Normal');
 
         res.innerHTML = `
-        <img src="https://lh3.googleusercontent.com/d/1anTO_5ARQh8NaQEq8Ilb9UZ1XFzOvp69" alt="Arqiba Logo" class="logo-resultado"><br>
+        <img src="https://lh3.googleusercontent.com/d/1v79815vDWeHIIdOUs7_K7I7mJlfQZKQ4" alt="Arqiba Logo" class="logo-resultado"><br>
         SUGESTÃO DE TAMANHO: <br><span style="font-size: 48px; line-height: 1.2;">${tam}</span><br>
         <small style="font-weight: normal; opacity: 0.9; display: block; margin-top: 8px;">Modelo ${modeloTexto} com caimento ${caimentoTexto.toLowerCase()}.</small>
         
